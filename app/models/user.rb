@@ -33,6 +33,15 @@ class User < ActiveRecord::Base
   
   before_save :encrypt_password
   
+  #class method
+  class << self
+    def authenticate(email, submitted_password)
+      user = find_by_email(email)
+      return nil  if user.nil?
+      return user if user.has_password?(submitted_password)
+    end
+  end
+  
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
   end
