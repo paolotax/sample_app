@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
-gem 'factory_girl'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -18,6 +18,7 @@ group :test do
    gem 'webrat', '0.7.2'
 
    gem 'spork'
+   gem 'factory_girl_rails'	
 end
 
 
