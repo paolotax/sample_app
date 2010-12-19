@@ -1,7 +1,23 @@
 <h1>Sign up</h1>
 
-<p>
-  This is the contact page for the
-  <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
-  sample application.
-</p>
+<%= form_for(@user) do |f| %>
+  <div class="field">
+	<%= f.label :name %><br />
+  	<%= f.text_field :name %><br />
+  </div>
+  <div class="field">
+	<%= f.label :email %><br />
+  	<%= f.text_field :email %><br />
+  </div>
+  <div class="field">
+	<%= f.label :password %><br />
+  	<%= f.password_field :password %><br />
+  </div>
+  <div class="field">
+	<%= f.label :password_confirmation, "Confirm password" %><br />
+  	<%= f.password_field :password_confirmation %><br />
+  </div>
+  <div class="actions">
+	<%= f.submit "Sign up" %><br />
+  </div>	
+<% end %>
