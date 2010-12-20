@@ -8,7 +8,10 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module SampleApp
   class Application < Rails::Application
-
+    
+    config.encoding = "utf-8"
+    
+    config.filter_parameters += [:password]
     ### Part of a Spork hack. See http://bit.ly/arY19y
     if Rails.env.test?
       initializer :after => :initialize_dependency_mechanism do
