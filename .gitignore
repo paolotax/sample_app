@@ -8,4 +8,4 @@ doc/app
 *.swp
 *~
 .DS_Store
-vendor/webrat.log
+webrat.log
