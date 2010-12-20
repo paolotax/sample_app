@@ -1,4 +1,4 @@
-require 'spec_helper'
+checkourequire 'spec_helper'
 
 describe "Users" do
   
