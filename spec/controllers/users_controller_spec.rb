@@ -71,7 +71,7 @@ describe UsersController do
         response.should have_selector("title", :content => "Sign up")
       end
       
-      it "should render the 'new' page" do
+      it "should re-render the 'new' page" do
         post :create, :user => @attr
         response.should render_template('new')   
       end
