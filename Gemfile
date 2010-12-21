@@ -8,6 +8,7 @@ gem 'gravatar_image_tag'
 group :development do
    gem 'rspec-rails'
    gem 'annotate-models'
+   gem 'faker'	
 end
 
 group :test do
