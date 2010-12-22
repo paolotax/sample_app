@@ -70,7 +70,6 @@ describe UsersController do
       
     end
   end
-
       
   describe "GET 'show'" do
     
@@ -107,6 +106,27 @@ describe UsersController do
       get :show, :id => @user
       response.should have_selector("td>a", :content => user_path(@user),
                                             :href    => user_path(@user))
+    end
+    
+    it "should show the user's microposts" do
+      mp1 = Factory(:micropost, :user => @user, :content => "value")
+      mp2 = Factory(:micropost, :user => @user, :content => "value2")
+      get :show, :id => @user
+      response.should have_selector('span.content', :content => mp1.content)
+      response.should have_selector('span.content', :content => mp2.content)
+    end
+    
+    it "should paginate user microposts" do
+      31.times { Factory(:micropost, :user => @user, :content => "value") }
+      get :show, :id => @user
+      response.should have_selector("div.pagination")
+    end
+    
+    it "should display the micropost count" do
+      10.times { Factory(:micropost, :user => @user, :content => "value") }
+      get :show, :id => @user
+      response.should have_selector("td.sidebar", :content => @user.microposts.count.to_s)
+      
     end
       
     
@@ -247,46 +267,6 @@ describe UsersController do
     end
   end
  
-  describe "authentication of edit/update actions" do
-    
-    before(:each) do
-      @user = Factory(:user)
-    end
-    
-    describe "for non-signed-in users" do
-      
-      it "should deny access to 'edit'" do
-        get :edit, :id => @user
-        response.should redirect_to(signin_path) 
-        flash[:notice].should =~  /sign in/i
-      end
-      
-      it "should deny access to 'update'" do
-        put :update, :id => @user, :user => {}
-        response.should redirect_to(signin_path) 
-      end
-    end
-
-    describe "for signed-in users" do
-    
-      before(:each) do
-        wrong_user = Factory(:user, :email => "user@value.it")
-        test_sign_in(wrong_user)
-      end
-    
-      it "should require matching users for 'edit'" do
-         get :edit, :id => @user
-         response.should redirect_to(root_path)
-      
-      end
-    
-      it "should require matching users for 'update'" do
-         put :update, :id => @user, :user => {}
-         response.should redirect_to(root_path)
-      end
-    end
-  end
-  
   describe "DELETE 'destroy'" do
     
     before(:each) do
@@ -333,4 +313,46 @@ describe UsersController do
       end
     end
   end
+
+  describe "authentication of edit/update actions" do
+    
+    before(:each) do
+      @user = Factory(:user)
+    end
+    
+    describe "for non-signed-in users" do
+      
+      it "should deny access to 'edit'" do
+        get :edit, :id => @user
+        response.should redirect_to(signin_path) 
+        flash[:notice].should =~  /sign in/i
+      end
+      
+      it "should deny access to 'update'" do
+        put :update, :id => @user, :user => {}
+        response.should redirect_to(signin_path) 
+      end
+    end
+
+    describe "for signed-in users" do
+    
+      before(:each) do
+        wrong_user = Factory(:user, :email => "user@value.it")
+        test_sign_in(wrong_user)
+      end
+    
+      it "should require matching users for 'edit'" do
+         get :edit, :id => @user
+         response.should redirect_to(root_path)
+      
+      end
+    
+      it "should require matching users for 'update'" do
+         put :update, :id => @user, :user => {}
+         response.should redirect_to(root_path)
+      end
+    end
+  end
+  
+
 end
