@@ -48,7 +48,7 @@ describe Micropost do
       @user.microposts.build(:content => "    ").should_not be_valid
     end
     
-    it "should require non blank content" do
+    it "should reject long content" do
       @user.microposts.build(:content => "a" * 141).should_not be_valid
     end
     
