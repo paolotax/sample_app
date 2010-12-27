@@ -212,6 +212,7 @@ table.microposts tr td.gravatar {
   width: 50px;
 }
 
+
 table.microposts tr td.micropost {
   border-top: 1px solid #ccc;
   vertical-align: top;
@@ -221,7 +222,12 @@ table.microposts tr td.micropost {
 table.microposts tr td.micropost span.timestamp {
   display: block;
   font-size: 85%;
+  vertical-align: bottom;
   color: #666;
+}
+
+table.microposts tr td.micropost a.mp_delete {
+  margin-bottom: 0;
 }
 
 div.user_info img {
