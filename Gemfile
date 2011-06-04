@@ -9,7 +9,7 @@ gem 'will_paginate'
 group :development do
    gem 'rspec-rails'
    gem 'annotate-models'
-   gem 'faker'	
+   #gem 'faker'	
 end
 
 group :test do
